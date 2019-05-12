@@ -1,11 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Palette from './Palette';
+import seedColors from './seedColors';
 
-function App() {
+const App = props => {
   return (
-    <div className="App">
-      test auto deployment...
+    <div className="">
+      <Palette {...seedColors[4]} />
     </div>
   );
 }
