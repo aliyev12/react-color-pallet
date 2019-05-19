@@ -7,3 +7,5 @@ test5
 add email
 hey yooo booo ¯\_(ツ)_/¯
 testing rebase
+
+adding changes before rebasing conflicts
