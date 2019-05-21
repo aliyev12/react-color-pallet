@@ -12,3 +12,5 @@ adding changes before rebasing conflicts
 TROUBLEEEEE!!! CONFLICT IS AWAITING ;)))
 
 another modification...
+
+editiiiinggg copyright
