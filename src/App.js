@@ -23,6 +23,10 @@ const App = props => {
           />
         )}
       />
+      <Route 
+        path="/palette/:paletteId/:colorId" 
+        render={(routeParams) => <h1>First param: {routeParams.match.params.paletteId}. Second param: {routeParams.match.params.colorId}</h1>} 
+      />
     </Switch>
 
     // <div className="">
