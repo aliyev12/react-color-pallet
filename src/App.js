@@ -26,7 +26,14 @@ const App = props => {
       />
       <Route 
         path="/palette/:paletteId/:colorId" 
-        render={(routeParams) => <SingleColorPalette />} 
+        render={routeProps => (
+        <SingleColorPalette
+          colorId={routeProps.match.params.colorId}
+          palette={generatePalette(
+            findPalette(routeProps.match.params.paletteId)
+          )}
+        />
+        )} 
       />
     </Switch>
 
