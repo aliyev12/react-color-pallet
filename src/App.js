@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
 import PaletteList from './PaletteList';
+import SingleColorPalette from './SingleColorPalette';
 
 const App = props => {
   const findPalette = id => {
@@ -25,7 +26,7 @@ const App = props => {
       />
       <Route 
         path="/palette/:paletteId/:colorId" 
-        render={(routeParams) => <h1>First param: {routeParams.match.params.paletteId}. Second param: {routeParams.match.params.colorId}</h1>} 
+        render={(routeParams) => <SingleColorPalette />} 
       />
     </Switch>
 
