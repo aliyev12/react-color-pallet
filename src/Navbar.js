@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Select, MenuItem, Snackbar, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Navbar.css";
@@ -12,12 +12,12 @@ const Navbar = ({ level, setLevel, changeFormat }) => {
 
   const handleClose = () => {
     setOpen(false);
-    
-  }
+  };
 
   const handleChange = async e => {
     await setFormat(e.target.value);
     await setOpen(true);
+    console.log("changeFormat => ", changeFormat);
     changeFormat(e.target.value);
   };
 
@@ -49,7 +49,9 @@ const Navbar = ({ level, setLevel, changeFormat }) => {
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         open={open}
         autoHideDuration={300}
-        message={<span id="message-id">Format Changed to {format.toUpperCase()}!</span>}
+        message={
+          <span id="message-id">Format Changed to {format.toUpperCase()}!</span>
+        }
         ContentProps={{
           "aria-describeby": "message-id"
         }}
