@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import "./ColorBox.css";
 import { Link } from "react-router-dom";
+import "./ColorBox.css";
 
 const ColorBox = ({ name, background, moreUrl, showLink }) => {
   const [copied, setCopied] = useState(false);
