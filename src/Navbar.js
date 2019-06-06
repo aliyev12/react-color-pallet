@@ -6,13 +6,9 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Navbar.css";
 
-const Navbar = ({ level, setLevel, changeFormat }) => {
+const Navbar = ({ level, setLevel, changeFormat, showingAllColors }) => {
   const [format, setFormat] = useState("hex");
   const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleChange = async e => {
     await setFormat(e.target.value);
@@ -26,18 +22,20 @@ const Navbar = ({ level, setLevel, changeFormat }) => {
       <div className="logo">
         <Link to="/">reactcolorpicker</Link>
       </div>
-      <div className="slider-container">
-        <span>Level: {level}</span>
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onAfterChange={setLevel}
-          />
+      {showingAllColors && (
+        <div className="slider-container">
+          <span>Level: {level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onAfterChange={setLevel}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="select-container">
         <Select value={format} onChange={handleChange}>
           <MenuItem value="hex">HEX - #ffffff</MenuItem>
@@ -55,7 +53,6 @@ const Navbar = ({ level, setLevel, changeFormat }) => {
         ContentProps={{
           "aria-describeby": "message-id"
         }}
-        // onClose={handleClose}
         action={[
           <IconButton
             onClick={() => setOpen(false)}
