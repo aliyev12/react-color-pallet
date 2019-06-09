@@ -15,10 +15,10 @@ const styles = {
   },
   colors: {
     backgroundColor: "#dae1e4",
-    height: '150px',
-    width: '100%',
-    borderRadius: '5px',
-    overflow: 'hidden'
+    height: "150px",
+    width: "100%",
+    borderRadius: "5px",
+    overflow: "hidden"
   },
   title: {
     display: "flex",
@@ -35,12 +35,12 @@ const styles = {
     fontSize: "1.5rem"
   },
   miniColor: {
-    height: '25%',
-    width: '20%',
-    display: 'inline-block',
-    margin: '0 auto',
-    position: 'relative',
-    marginBottom: '-3.5px'
+    height: "25%",
+    width: "20%",
+    display: "inline-block",
+    margin: "0 auto",
+    position: "relative",
+    marginBottom: "-3.5px"
   }
 };
 
