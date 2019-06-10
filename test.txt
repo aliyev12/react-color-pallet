@@ -1,7 +1,16 @@
+cool title hehee
 test
 test2
 test3
 test4
 test5
-test6
-copyright
+add email
+hey yooo booo ¯\_(ツ)_/¯
+testing rebase
+
+adding changes before rebasing conflicts
+TROUBLEEEEE!!! CONFLICT IS AWAITING ;)))
+
+another modification...
+
+editiiiinggg copyright
