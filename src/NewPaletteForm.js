@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NewPaletteForm = props => {
+const NewPaletteForm = ({ savePalette, history }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [currentColor, setCurrentColor] = React.useState("teal");
@@ -90,32 +90,28 @@ const NewPaletteForm = props => {
       colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
     );
     // Validate
-    ValidatorForm.addValidationRule("isColorUnique", () => {
-      const whateva = colors.every(({ color }) => {
-        console.log(`
-          color = ${color}
-          currentColor = ${currentColor}
-          `);
-        return color.toLowerCase() !== currentColor;
-      });
-      console.log(whateva);
-      return whateva;
-    });
+    ValidatorForm.addValidationRule("isColorUnique", () =>
+      colors.every(({ color }) => color.toLowerCase() !== currentColor)
+    );
   });
 
-  function handleDrawerOpen() {
-    setOpen(true);
-  }
-
-  function handleDrawerClose() {
-    setOpen(false);
-  }
+  const handleSubmit = () => {
+    let newName = "New Test Palette";
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /g, "-"),
+      colors
+    };
+    savePalette(newPalette);
+    history.push("/");
+  };
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
@@ -124,7 +120,7 @@ const NewPaletteForm = props => {
           <IconButton
             color="inherit"
             aria-label="Open drawer"
-            onClick={handleDrawerOpen}
+            onClick={() => setOpen(true)}
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
@@ -133,6 +129,9 @@ const NewPaletteForm = props => {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -145,7 +144,7 @@ const NewPaletteForm = props => {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={() => setOpen(false)}>
             <ChevronLeftIcon />
           </IconButton>
         </div>
