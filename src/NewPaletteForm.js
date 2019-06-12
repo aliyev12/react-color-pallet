@@ -13,7 +13,6 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ChromePicker } from "react-color";
 import { Button } from "@material-ui/core";
 import DraggableColorBox from "./DraggableColorBox";
-import { callbackify } from "util";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 const drawerWidth = 400;
@@ -213,7 +212,14 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
       >
         <div className={classes.drawerHeader} />
         {colors.map(color => (
-          <DraggableColorBox color={color.color} name={color.name} />
+          <DraggableColorBox
+            key={color.name}
+            color={color.color}
+            name={color.name}
+            handleClick={() =>
+              setColors(colors.filter(col => col.name !== color.name))
+            }
+          />
         ))}
       </main>
     </div>
