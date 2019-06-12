@@ -23,6 +23,7 @@ const App = props => {
         render={routeProps => (
           <NewPaletteForm
             savePalette={newPalette => setPalettes([...palettes, newPalette])}
+            palettes={palettes}
             {...routeProps}
           />
         )}
