@@ -13,7 +13,7 @@ const App = props => {
 
   const findPalette = id => palettes.find(palette => palette.id === id);
 
-  const savePalette = newPalette => {};
+  // const savePalette = newPalette => {};
 
   return (
     <Switch>

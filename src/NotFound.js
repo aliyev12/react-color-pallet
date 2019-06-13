@@ -1,5 +1,4 @@
 import React from "react";
-import { fontSize } from "@material-ui/system";
 
 export default () => (
   <div
