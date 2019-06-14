@@ -15,7 +15,8 @@ import { Button } from "@material-ui/core";
 // import DraggableColorBox from "./DraggableColorBox";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import DraggableColorList from "./DraggableColorList";
-import { arrayMove } from "react-sortable-hoc";
+import arrayMove from "array-move";
+import starterColors from "./starterColors";
 
 const drawerWidth = 400;
 
@@ -80,7 +81,28 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [currentColor, setCurrentColor] = useState("teal");
-  const [colors, setColors] = useState([{ color: "green", name: "Green" }]);
+  //const [colors, setColors] = useState([{ color: "blue", name: "blue" }]);
+  const [colors, setColors] = useState([
+    { name: "red", color: "#F44336" },
+    { name: "pink", color: "#E91E63" },
+    { name: "purple", color: "#9C27B0" },
+    { name: "deeppurple", color: "#673AB7" },
+    { name: "indigo", color: "#3F51B5" },
+    { name: "blue", color: "#2196F3" },
+    { name: "lightblue", color: "#03A9F4" },
+    { name: "cyan", color: "#00BCD4" },
+    { name: "teal", color: "#009688" },
+    { name: "green", color: "#4CAF50" },
+    { name: "lightgreen", color: "#8BC34A" },
+    { name: "lime", color: "#CDDC39" },
+    { name: "yellow", color: "#FFEB3B" },
+    { name: "amber", color: "#FFC107" },
+    { name: "orange", color: "#FF9800" },
+    { name: "deeporange", color: "#FF5722" },
+    { name: "brown", color: "#795548" },
+    { name: "grey", color: "#9E9E9E" },
+    { name: "bluegrey", color: "#607D8B" }
+  ]);
   const [newColorName, setnewColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
 
@@ -219,11 +241,13 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
         {colors.map(color => (
           <DraggableColorList
             colors={colors}
-            removeColor={colorName =>
-              setColors(colors.filter(col => col.name !== colorName))
-            }
+            removeColor={colorName => {
+              const newColors = colors.filter(col => col.name !== colorName);
+              setColors(newColors);
+            }}
             axis="xy"
             onSortEnd={onSortEnd}
+            key={color.name}
           />
         ))}
       </main>
