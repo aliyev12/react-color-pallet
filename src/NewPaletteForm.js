@@ -12,7 +12,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ChromePicker } from "react-color";
 import { Button } from "@material-ui/core";
-import DraggableColorBox from "./DraggableColorBox";
 import DraggableColorList from "./DraggableColorList";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import arrayMove from "array-move";
@@ -76,32 +75,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NewPaletteForm = ({ savePalette, history, palettes }) => {
+const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [currentColor, setCurrentColor] = useState("teal");
-  //const [colors, setColors] = useState([{ color: "blue", name: "blue" }]);
-  const [colors, setColors] = useState([
-    { name: "red", color: "#F44336" },
-    { name: "pink", color: "#E91E63" },
-    { name: "purple", color: "#9C27B0" },
-    { name: "deeppurple", color: "#673AB7" },
-    { name: "indigo", color: "#3F51B5" },
-    { name: "blue", color: "#2196F3" },
-    { name: "lightblue", color: "#03A9F4" },
-    { name: "cyan", color: "#00BCD4" },
-    { name: "teal", color: "#009688" },
-    { name: "green", color: "#4CAF50" },
-    { name: "lightgreen", color: "#8BC34A" },
-    { name: "lime", color: "#CDDC39" },
-    { name: "yellow", color: "#FFEB3B" },
-    { name: "amber", color: "#FFC107" },
-    { name: "orange", color: "#FF9800" },
-    { name: "deeporange", color: "#FF5722" },
-    { name: "brown", color: "#795548" },
-    { name: "grey", color: "#9E9E9E" },
-    { name: "bluegrey", color: "#607D8B" }
-  ]);
+  const [colors, setColors] = useState(palettes[0].colors);
   const [newColorName, setnewColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
 
@@ -133,6 +111,30 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     setColors(arrayMove(colors, oldIndex, newIndex));
+  };
+
+  const addRandomColor = () => {
+    if (colors.length < maxColors) {
+      const allColors = palettes.map(p => p.colors).flat();
+      let randomColor;
+      let check = true;
+      let maxLoop = 0;
+      while (check) {
+        var rand = Math.floor(Math.random() * allColors.length);
+        var exists =
+          colors.map(c => c.color).indexOf(allColors[rand].color) !== -1;
+        if (!exists) {
+          randomColor = allColors[rand];
+          check = false;
+        }
+        if (maxLoop >= 1000) {
+          check = true;
+        }
+        maxLoop = maxLoop + 1;
+      }
+
+      setColors(oldColors => [...oldColors, randomColor]);
+    }
   };
 
   return (
@@ -189,11 +191,20 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
         <Divider />
         <Typography variant="h4">Design Your Palette</Typography>
         <div>
-          <Button variant="contained" color="secondary">
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setColors([])}
+          >
             Clear Palette Button
           </Button>
-          <Button variant="contained" color="primary">
-            Random Color
+          <Button
+            disabled={colors.length >= maxColors}
+            variant="contained"
+            color="primary"
+            onClick={addRandomColor}
+          >
+            {colors.length >= maxColors ? "Palette Full" : "Random Color"}
           </Button>
         </div>
         <ChromePicker
@@ -202,14 +213,16 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
         />
         <ValidatorForm
           onSubmit={e => {
-            setColors([
-              ...colors,
-              {
-                color: currentColor,
-                name: newColorName
-              }
-            ]);
-            //setnewColorName("");
+            if (colors.length < maxColors) {
+              setColors([
+                ...colors,
+                {
+                  color: currentColor,
+                  name: newColorName
+                }
+              ]);
+              //setnewColorName("");
+            }
           }}
         >
           <TextValidator
@@ -227,8 +240,9 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
             type="submit"
             color="primary"
             style={{ backgroundColor: currentColor }}
+            disabled={colors.length >= maxColors}
           >
-            Add Color
+            {colors.length >= maxColors ? "Palette Full" : "Add Color"}
           </Button>
         </ValidatorForm>
       </Drawer>
@@ -238,20 +252,6 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
         })}
       >
         <div className={classes.drawerHeader} />
-<<<<<<< HEAD
-        {colors.map(color => (
-          <DraggableColorList
-            colors={colors}
-            removeColor={colorName => {
-              const newColors = colors.filter(col => col.name !== colorName);
-              setColors(newColors);
-            }}
-            axis="xy"
-            onSortEnd={onSortEnd}
-            key={color.name}
-          />
-        ))}
-=======
         <DraggableColorList
           colors={colors}
           axis="xy"
@@ -260,10 +260,13 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
           }}
           onSortEnd={onSortEnd}
         />
->>>>>>> redoing-draggable
       </main>
     </div>
   );
+};
+
+NewPaletteForm.defaultProps = {
+  maxColors: 20
 };
 
 export default NewPaletteForm;
