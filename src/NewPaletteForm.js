@@ -2,19 +2,16 @@ import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ChromePicker } from "react-color";
 import { Button } from "@material-ui/core";
 import DraggableColorList from "./DraggableColorList";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import arrayMove from "array-move";
+import PaletteFormNav from "./PaletteFormNav";
 
 const drawerWidth = 400;
 
@@ -81,7 +78,6 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
   const [currentColor, setCurrentColor] = useState("teal");
   const [colors, setColors] = useState(palettes[0].colors);
   const [newColorName, setnewColorName] = useState("");
-  const [newPaletteName, setNewPaletteName] = useState("");
 
   useEffect(() => {
     // Validate name unique
@@ -92,15 +88,9 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
     ValidatorForm.addValidationRule("isColorUnique", () =>
       colors.every(({ color }) => color.toLowerCase() !== currentColor)
     );
-    // Validate palette name unique
-    ValidatorForm.addValidationRule("isPaletteNameUnique", value =>
-      palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      )
-    );
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = newPaletteName => {
     savePalette({
       paletteName: newPaletteName,
       id: newColorName.toLowerCase().replace(/ /g, "-"),
@@ -139,41 +129,13 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        color="default"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={() => setOpen(true)}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Persistent drawer
-          </Typography>
-          <ValidatorForm onSubmit={handleSubmit}>
-            <TextValidator
-              level="Palette Name"
-              onChange={e => setNewPaletteName(e.target.value)}
-              value={newPaletteName}
-              validators={["required", "isPaletteNameUnique"]}
-              errorMessages={["Enter Palette Name", "Name already used"]}
-            />
-            <Button type="submit" variant="contained" color="primary">
-              Save Palette
-            </Button>
-          </ValidatorForm>
-        </Toolbar>
-      </AppBar>
+      <PaletteFormNav
+        open={open}
+        setOpen={setOpen}
+        classes={classes}
+        palettes={palettes}
+        handleSubmit={handleSubmit}
+      />
       <Drawer
         className={classes.drawer}
         variant="persistent"

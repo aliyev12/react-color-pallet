@@ -16,10 +16,11 @@ const PaletteList = ({ palettes, classes, history }) => {
           <Link to="/palette/new">Create Palette</Link>
         </nav>
         <div className={classes.palettes}>
-          {palettes.map(palette => (
+          {palettes.map((palette, i) => (
             <MiniPalette
               {...palette}
               handleClick={() => goToPalette(palette.id)}
+              key={i}
             />
           ))}
         </div>
