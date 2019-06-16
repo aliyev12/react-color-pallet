@@ -25,7 +25,9 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0
   },
   drawerPaper: {
-    width: variables.drawerWidth
+    width: variables.drawerWidth,
+    display: "flex",
+    alignItems: "center"
   },
   drawerHeader: {
     display: "flex",
@@ -59,20 +61,23 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     alignItems: "center"
   },
-  buttons: {}
+  buttons: {
+    width: "100%"
+  },
+  button: {
+    width: "50%"
+  }
 }));
 
-const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
+const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const [currentColor, setCurrentColor] = useState("teal");
   const [colors, setColors] = useState(palettes[0].colors);
-  const [newColorName, setnewColorName] = useState("");
 
   const handleSubmit = newPaletteName => {
     savePalette({
       paletteName: newPaletteName,
-      id: newColorName.toLowerCase().replace(/ /g, "-"),
+      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
       colors
     });
     history.push("/");
@@ -83,7 +88,7 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
   };
 
   const addRandomColor = () => {
-    if (colors.length < maxColors) {
+    if (colors.length < variables.maxColors) {
       const allColors = palettes.map(p => p.colors).flat();
       let randomColor;
       let check = true;
@@ -101,33 +106,17 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
         }
         maxLoop = maxLoop + 1;
       }
-
       setColors(oldColors => [...oldColors, randomColor]);
     }
   };
 
-  const handleCurrentColor = newColor => {
-    setCurrentColor(newColor.hex);
-  };
-
-  const handleAddNewColor = newColorName => {
-    if (colors.length < maxColors) {
-      setColors([
-        ...colors,
-        {
-          color: currentColor,
-          name: newColorName
-        }
-      ]);
+  const handleAddNewColor = newColor => {
+    if (colors.length < variables.maxColors) {
+      setColors([...colors, newColor]);
     }
-    setnewColorName("");
   };
 
-  const handleNewColorName = e => {
-    setnewColorName(e.target.value);
-  };
-
-  const paletteIsFull = colors.length >= maxColors;
+  const paletteIsFull = colors.length >= variables.maxColors;
 
   return (
     <div className={classes.root}>
@@ -135,15 +124,8 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
         open={open}
         setOpen={setOpen}
         classes={classes}
-        maxColors={maxColors}
         palettes={palettes}
         handleSubmit={handleSubmit}
-        colors={colors}
-        setColors={setColors}
-        newColorName={newColorName}
-        setnewColorName={setnewColorName}
-        currentColor={currentColor}
-        setCurrentColor={setCurrentColor}
       />
       <Drawer
         className={classes.drawer}
@@ -161,12 +143,15 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
         </div>
         <Divider />
         <div className={classes.container}>
-          <Typography variant="h4">Design Your Palette</Typography>
+          <Typography variant="h4" gutterBottom>
+            Design Your Palette
+          </Typography>
           <div className={classes.buttons}>
             <Button
               variant="contained"
               color="secondary"
               onClick={() => setColors([])}
+              className={classes.button}
             >
               Clear Palette Button
             </Button>
@@ -175,16 +160,14 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
               variant="contained"
               color="primary"
               onClick={addRandomColor}
+              className={classes.button}
             >
               {paletteIsFull ? "Palette Full" : "Random Color"}
             </Button>
           </div>
           <ColorPickerForm
             paletteIsFull={paletteIsFull}
-            handleCurrentColor={handleCurrentColor}
             handleAddNewColor={handleAddNewColor}
-            handleNewColorName={handleNewColorName}
-            newColorName={newColorName}
             colors={colors}
           />
         </div>
@@ -206,10 +189,6 @@ const NewPaletteForm = ({ savePalette, history, palettes, maxColors }) => {
       </main>
     </div>
   );
-};
-
-NewPaletteForm.defaultProps = {
-  maxColors: 20
 };
 
 export default NewPaletteForm;

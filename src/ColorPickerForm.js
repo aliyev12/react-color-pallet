@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ChromePicker } from "react-color";
 import { Button } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -14,19 +14,22 @@ const styles = {
     padding: "1rem",
     marginTop: "1rem",
     fontSize: "2rem"
+  },
+  colorNameInput: {
+    width: "100%",
+    height: "70px"
   }
 };
 
 const ColorPickerForm = ({
   paletteIsFull,
-  currentColor,
   handleAddNewColor,
-  handleCurrentColor,
-  handleNewColorName,
-  newColorName,
   colors,
   classes
 }) => {
+  const [currentColor, setCurrentColor] = useState("teal");
+  const [newColorName, setnewColorName] = useState("");
+
   useEffect(() => {
     // Validate name unique
     ValidatorForm.addValidationRule("isColorNameUnique", value =>
@@ -37,23 +40,39 @@ const ColorPickerForm = ({
       colors.every(({ color }) => color.toLowerCase() !== currentColor)
     );
   });
+
   return (
     <>
       <ChromePicker
         color={currentColor}
-        onChangeComplete={handleCurrentColor}
+        onChangeComplete={newColor => {
+          setCurrentColor(newColor.hex);
+        }}
         className={classes.picker}
       />
-      <ValidatorForm onSubmit={() => handleAddNewColor(newColorName)}>
+      <ValidatorForm
+        onSubmit={() =>
+          handleAddNewColor({
+            color: currentColor,
+            name: newColorName
+          })
+        }
+      >
         <TextValidator
           value={newColorName}
-          onChange={handleNewColorName}
+          className={classes.colorNameInput}
+          variant="filled"
+          margin="normal"
+          onChange={e => {
+            setnewColorName(e.target.value);
+          }}
           validators={["required", "isColorNameUnique", "isColorUnique"]}
           errorMessages={[
             "Enter a color name",
             "Color name must be unique",
             "Color already used!"
           ]}
+          placeholder="Color Name"
         />
         <Button
           variant="contained"

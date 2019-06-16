@@ -1,3 +1,4 @@
 export default {
-  drawerWidth: 400
+  drawerWidth: 500,
+  maxColors: 20
 };
