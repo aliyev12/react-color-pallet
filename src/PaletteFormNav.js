@@ -98,7 +98,11 @@ const PaletteFormNav = ({ classes, open, setOpen, palettes, handleSubmit }) => {
         </div>
       </AppBar>
       {formShowing && (
-        <PaletteMetaForm palettes={palettes} handleSubmit={handleSubmit} />
+        <PaletteMetaForm
+          palettes={palettes}
+          handleSubmit={handleSubmit}
+          setFormShowing={setFormShowing}
+        />
       )}
     </div>
   );
