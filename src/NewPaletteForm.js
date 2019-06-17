@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%"
   },
   button: {
-    width: "50%"
+    // width: "50%"
   }
 }));
 
