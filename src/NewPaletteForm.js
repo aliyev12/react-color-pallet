@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
@@ -12,66 +11,7 @@ import arrayMove from "array-move";
 import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import variables from "./variables";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
-  },
-  hide: {
-    display: "none"
-  },
-  drawer: {
-    width: variables.drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: variables.drawerWidth,
-    display: "flex",
-    alignItems: "center"
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
-  },
-  content: {
-    flexGrow: 1,
-    height: `calc(100vh - 64px)`,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    marginLeft: -variables.drawerWidth
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginLeft: 0
-  },
-  container: {
-    width: "90%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  buttons: {
-    width: "100%",
-    display: "flex"
-  },
-  button: {
-    width: "49%",
-    "&:first-child": {
-      marginRight: "auto"
-    }
-  }
-}));
+import useStyles from "./styles/NewPaletteFormStyles";
 
 const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const classes = useStyles();
