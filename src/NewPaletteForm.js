@@ -62,10 +62,14 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center"
   },
   buttons: {
-    width: "100%"
+    width: "100%",
+    display: "flex"
   },
   button: {
-    // width: "50%"
+    width: "49%",
+    "&:first-child": {
+      marginRight: "auto"
+    }
   }
 }));
 
@@ -74,12 +78,10 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const [open, setOpen] = useState(true);
   const [colors, setColors] = useState(palettes[0].colors);
 
-  const handleSubmit = newPaletteName => {
-    savePalette({
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-      colors
-    });
+  const handleSubmit = newPalette => {
+    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");
+    newPalette.colors = colors;
+    savePalette(newPalette);
     history.push("/");
   };
 

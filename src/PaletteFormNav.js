@@ -39,13 +39,21 @@ const styles = theme => ({
   },
   navBtns: {
     marginRight: "1rem",
+    display: "flex",
+    width: "fit-content",
     "& a": {
-      textDecoration: "none"
+      textDecoration: "none",
+      marginRight: "1rem"
     }
   },
   button: {
     margin: "0 0.5rem"
-  }
+  },
+  goBackBtn: {
+    width: "fit-content",
+    whiteSpace: "nowrap"
+  },
+  saveBtn: {}
 });
 
 const PaletteFormNav = ({ classes, open, setOpen, palettes, handleSubmit }) => {
@@ -78,7 +86,7 @@ const PaletteFormNav = ({ classes, open, setOpen, palettes, handleSubmit }) => {
         <div className={classes.navBtns}>
           <Link to="/">
             <Button
-              className={classes.button}
+              className={classes.goBackBtn}
               variant="contained"
               color="secondary"
             >
@@ -86,7 +94,7 @@ const PaletteFormNav = ({ classes, open, setOpen, palettes, handleSubmit }) => {
             </Button>
           </Link>
           <Button
-            className={classes.button}
+            className={classes.saveBtn}
             variant="contained"
             color="primary"
             onClick={() => {
