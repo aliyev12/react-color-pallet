@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Button } from "@material-ui/core";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
 import PaletteMetaForm from "./PaletteMetaForm";
@@ -26,14 +27,14 @@ const PaletteFormNav = ({ classes, open, setOpen, palettes, handleSubmit }) => {
         })}
       >
         <Toolbar>
-          <IconButton
+        <IconButton
             color="inherit"
             aria-label="Open drawer"
             onClick={() => setOpen(true)}
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <ChevronRightIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
             Create A Palette
