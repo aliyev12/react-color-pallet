@@ -11,15 +11,15 @@ export default {
     cursor: `pointer`,
     marginBottom: `-3.5px`,
     "&:hover button": {
-      opacity: 1
+      opacity: "1"
     },
     [sizes.down("lg")]: {
       width: "25%",
-      height: props => (props.showingFullPalette ? "20%" : "50%")
+      height: props => (props.showingFullPalette ? "20%" : "33.3333%")
     },
     [sizes.down("md")]: {
       width: "50%",
-      height: props => (props.showingFullPalette ? "10%" : "50%")
+      height: props => (props.showingFullPalette ? "10%" : "20%")
     },
     [sizes.down("xs")]: {
       width: "100%",
@@ -67,7 +67,8 @@ export default {
     textTransform: `uppercase`,
     border: `none`,
     textDecoration: `none`,
-    opacity: 0
+    opacity: 0,
+    cursor: "pointer"
   },
   boxContent: {
     position: `absolute`,
@@ -116,7 +117,10 @@ export default {
       textAlign: `center`,
       marginBottom: `0`,
       padding: `1rem`,
-      textTransform: `uppercase`
+      textTransform: `uppercase`,
+      [sizes.down("xs")]: {
+        fontSize: "6rem"
+      }
     },
     "& p": {
       fontSize: `2rem`,

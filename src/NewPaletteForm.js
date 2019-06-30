@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
@@ -16,7 +16,13 @@ import useStyles from "./styles/NewPaletteFormStyles";
 const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const [colors, setColors] = useState(palettes[0].colors);
+  const [colors, setColors] = useState([]);
+
+  useEffect(() => {
+    if (palettes && palettes.length > 0 && palettes[0].colors) {
+      setColors(palettes[0].colors);
+    }
+  }, []);
 
   const handleSubmit = newPalette => {
     newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");

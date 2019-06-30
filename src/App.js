@@ -12,14 +12,14 @@ const App = props => {
   const [palettes, setPalettes] = useState([]);
 
   useEffect(() => {
-    let savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+    const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
     // If there are palletes in the local storage, then use them, otherwise just use the seed color pallets
     if (savedPalettes) {
       setPalettes(savedPalettes);
     } else {
       setPalettes(seedColors);
     }
-  });
+  }, []);
 
   const handleSavePalette = pal => {
     const newPalette = [...palettes, pal];
