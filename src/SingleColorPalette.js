@@ -8,19 +8,30 @@ import styles from "./styles/PaletteStyles";
 
 const SingleColorPalette = ({ palette, colorId, classes }) => {
   const [format, changeFormat] = useState("hex");
-  const { paletteName, emoji, id } = palette;
+  let paletteName, emoji, id;
+  if (palette && palette.paletteName) {
+    paletteName = palette.paletteName;
+  }
+  if (palette && palette.emoji) {
+    emoji = palette.emoji;
+  }
+  if (palette && palette.id) {
+    id = palette.id;
+  }
 
   // Return all shades of given color
   const gatherShades = (pal, colorToFilterBy) => {
     let shades = [];
-    let allColors = pal.colors;
-
-    for (let key in allColors) {
-      shades = shades.concat(
-        allColors[key].filter(col => col.id === colorToFilterBy)
-      );
+    if (pal && pal.colors) {
+      let allColors = pal.colors;
+      for (let key in allColors) {
+        shades = shades.concat(
+          allColors[key].filter(col => col.id === colorToFilterBy)
+        );
+      }
+      return shades.slice(1);
     }
-    return shades.slice(1);
+    return [];
   };
 
   const _shades = gatherShades(palette, colorId);
@@ -35,18 +46,22 @@ const SingleColorPalette = ({ palette, colorId, classes }) => {
     />
   ));
 
-  return (
-    <div className={classes.Palette}>
-      <Navbar changeFormat={changeFormat} showingAllColors={false} />
-      <div className={classes.colors}>
-        {colorBoxes}
-        <div className={classes.goBack}>
-          <Link to={`/palette/${id}`}>Go Back</Link>
+  if (paletteName && emoji && id) {
+    return (
+      <div className={classes.Palette}>
+        <Navbar changeFormat={changeFormat} showingAllColors={false} />
+        <div className={classes.colors}>
+          {colorBoxes}
+          <div className={classes.goBack}>
+            <Link to={`/palette/${id}`}>Go Back</Link>
+          </div>
         </div>
+        <PaletteFooter paletteName={paletteName} emoji={emoji} />
       </div>
-      <PaletteFooter paletteName={paletteName} emoji={emoji} />
-    </div>
-  );
+    );
+  } else {
+    return null;
+  }
 };
 
 export default withStyles(styles)(SingleColorPalette);
