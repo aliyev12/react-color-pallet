@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import styles from "./styles/PaletteListStyles";
 
-const PaletteList = ({ palettes, classes, history }) => {
+const PaletteList = ({ palettes, classes, history, deletePalette }) => {
   const goToPalette = id => {
     history.push(`/palette/${id}`);
   };
@@ -16,13 +16,17 @@ const PaletteList = ({ palettes, classes, history }) => {
           <Link to="/palette/new">Create Palette</Link>
         </nav>
         <div className={classes.palettes}>
-          {palettes.map((palette, i) => (
-            <MiniPalette
-              {...palette}
-              handleClick={() => goToPalette(palette.id)}
-              key={i}
-            />
-          ))}
+          {palettes &&
+            palettes.length > 0 &&
+            palettes.map((palette, i) => (
+              <MiniPalette
+                {...palette}
+                handleClick={() => goToPalette(palette.id)}
+                handleDeletePalette={deletePalette}
+                paletteId={palette.id}
+                key={palette.id}
+              />
+            ))}
         </div>
       </div>
     </div>

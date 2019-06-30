@@ -9,17 +9,28 @@ import NewPaletteForm from "./NewPaletteForm";
 import NotFound from "./NotFound";
 
 const App = props => {
-  const [palettes, setPalettes] = useState(seedColors);
+  const [palettes, setPalettes] = useState([]);
 
   useEffect(() => {
     let savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
-    setPalettes(savedPalettes);
+    // If there are palletes in the local storage, then use them, otherwise just use the seed color pallets
+    if (savedPalettes) {
+      setPalettes(savedPalettes);
+    } else {
+      setPalettes(seedColors);
+    }
   });
 
   const handleSavePalette = pal => {
     const newPalette = [...palettes, pal];
     setPalettes(newPalette);
     syncLocalStorage(newPalette);
+  };
+
+  const deletePalette = id => {
+    const newPalettes = palettes.filter(palette => palette.id !== id);
+    setPalettes(palettes.filter(palette => palette.id !== id));
+    syncLocalStorage(newPalettes);
   };
 
   const syncLocalStorage = pals => {
@@ -46,7 +57,11 @@ const App = props => {
         exact
         path="/"
         render={routeProps => (
-          <PaletteList palettes={palettes} {...routeProps} />
+          <PaletteList
+            palettes={palettes}
+            deletePalette={deletePalette}
+            {...routeProps}
+          />
         )}
       />
       <Route
