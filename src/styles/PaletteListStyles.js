@@ -1,4 +1,5 @@
 import sizes from "./sizes";
+import bg from "./Cornered-Stairs.svg";
 
 export default {
   root: {
@@ -6,7 +7,13 @@ export default {
     height: "100vh",
     display: "flex",
     alignItems: "flex-start",
-    justifyContent: "center"
+    justifyContent: "center",
+    /* background by SVGBackgrounds.com */
+    backgroundImage: `url("${bg}")`,
+    overflow: "scroll"
+  },
+  heading: {
+    fontSize: "2rem"
   },
   container: {
     width: "50%",
