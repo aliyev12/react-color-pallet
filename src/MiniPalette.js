@@ -9,7 +9,7 @@ const MiniPalette = ({
   emoji,
   colors,
   handleClick,
-  handleDeletePalette,
+  openDialog,
   paletteId
 }) => (
   <div className={classes.root} onClick={handleClick}>
@@ -18,7 +18,7 @@ const MiniPalette = ({
       style={{ transition: "all 0.3s ease-in-out" }}
       onClick={e => {
         e.stopPropagation();
-        handleDeletePalette(paletteId);
+        openDialog(paletteId);
       }}
     />
     <div className={classes.colors}>
