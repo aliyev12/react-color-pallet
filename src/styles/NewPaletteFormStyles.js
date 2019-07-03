@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center"
   },
   drawerHeader: {
-    width: '100%',
+    marginBottom: "11px",
+    width: "100%",
     display: "flex",
     alignItems: "center",
     padding: "0 8px",

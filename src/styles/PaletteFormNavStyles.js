@@ -1,10 +1,11 @@
 import variables from "../variables";
+import sizes from "./sizes";
 
 const styles = theme => ({
   root: {
     display: "flex"
   },
-    hide: {
+  hide: {
     display: "none"
   },
   appBar: {
@@ -42,9 +43,22 @@ const styles = theme => ({
   },
   goBackBtn: {
     width: "fit-content",
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
+    [sizes.down("xxs")]: {
+      transform: "scale(0.5) translateX(31px)",
+      marginRight: "0"
+    }
   },
-  saveBtn: {}
+  saveBtn: {
+    [sizes.down("xxs")]: {
+      transform: "scale(0.5) translateX(-48px)"
+    }
+  },
+  createAPalette: {
+    [sizes.down("xxs")]: {
+      fontSize: "1rem !important"
+    }
+  }
 });
 
 export default styles;

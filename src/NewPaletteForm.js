@@ -22,7 +22,7 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
     if (palettes && palettes.length > 0 && palettes[0].colors) {
       setColors(palettes[0].colors);
     }
-  }, []);
+  }, [palettes]);
 
   const handleSubmit = newPalette => {
     newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");

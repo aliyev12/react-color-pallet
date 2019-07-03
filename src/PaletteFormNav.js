@@ -27,7 +27,7 @@ const PaletteFormNav = ({ classes, open, setOpen, palettes, handleSubmit }) => {
         })}
       >
         <Toolbar>
-        <IconButton
+          <IconButton
             color="inherit"
             aria-label="Open drawer"
             onClick={() => setOpen(true)}
@@ -36,7 +36,7 @@ const PaletteFormNav = ({ classes, open, setOpen, palettes, handleSubmit }) => {
           >
             <ChevronRightIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography className={classes.createAPalette} variant="h6" noWrap>
             Create A Palette
           </Typography>
         </Toolbar>
