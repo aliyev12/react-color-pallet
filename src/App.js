@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import Palette from "./Palette";
 import { Route, Switch } from "react-router-dom";
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
@@ -8,12 +7,7 @@ import PaletteList from "./PaletteList";
 import SingleColorPalette from "./SingleColorPalette";
 import NewPaletteForm from "./NewPaletteForm";
 import NotFound from "./NotFound";
-
-// import {
-//   ColorPalettesProvider,
-//   useColorPalettesState,
-//   useColorPalettesDispatch
-// } from "./Context";
+import Palette from "./Palette";
 
 const App = props => {
   const [palettes, setPalettes] = useState([]);

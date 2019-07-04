@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/styles";
 import styles from "./styles/MiniPaletteStyles.js";
 import DeleteIcon from "@material-ui/icons/Delete";

@@ -41,7 +41,8 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen
     }),
-    marginLeft: 0
+    marginLeft: 0,
+    paddingBottom: "20px"
   },
   container: {
     width: "90%",

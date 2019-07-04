@@ -41,6 +41,7 @@ const ColorPickerForm = ({
             name: newColorName
           })
         }
+        instantValidate={false}
       >
         <TextValidator
           value={newColorName}

@@ -13,11 +13,12 @@ import ColorPickerForm from "./ColorPickerForm";
 import variables from "./variables";
 import useStyles from "./styles/NewPaletteFormStyles";
 import Page from "./Page";
+import seedColors from "./seedColors";
 
 const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState(seedColors[0].colors);
 
   useEffect(() => {
     if (palettes && palettes.length > 0 && palettes[0].colors) {
@@ -73,7 +74,6 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
         <PaletteFormNav
           open={open}
           setOpen={setOpen}
-          // classes={classes}
           palettes={palettes}
           handleSubmit={handleSubmit}
         />
