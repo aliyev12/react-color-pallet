@@ -24,6 +24,26 @@ const PaletteList = ({ palettes, classes, history, deletePalette }) => {
   const goToPalette = id => {
     history.push(`/palette/${id}`);
   };
+
+  const handleOpenDialog = id => {
+    setOpenDeleteDialog(true);
+    setDeletingId(id);
+  };
+
+  const handleClose = () => {
+    setOpenDeleteDialog(false);
+    setDeletingId("");
+  };
+
+  const handleDelete = () => {
+    deletePalette(deletingId);
+    setOpenDeleteDialog(false);
+  };
+
+  const handleCancel = () => {
+    setOpenDeleteDialog(false);
+    setDeletingId("");
+  };
   return (
     <Page>
       <div className={classes.root}>
@@ -39,11 +59,8 @@ const PaletteList = ({ palettes, classes, history, deletePalette }) => {
                 <CSSTransition key={palette.id} classNames="fade" timeout={300}>
                   <MiniPalette
                     {...palette}
-                    handleClick={() => goToPalette(palette.id)}
-                    openDialog={id => {
-                      setOpenDeleteDialog(true);
-                      setDeletingId(id);
-                    }}
+                    handleClick={goToPalette}
+                    openDialog={handleOpenDialog}
                     paletteId={palette.id}
                     key={palette.id}
                   />
@@ -54,22 +71,13 @@ const PaletteList = ({ palettes, classes, history, deletePalette }) => {
         <Dialog
           open={openDeleteDialog}
           aria-labelledby="delete-dialog-title"
-          onClose={() => {
-            setOpenDeleteDialog(false);
-            setDeletingId("");
-          }}
+          onClose={handleClose}
         >
           <DialogTitle id="delete-dialog-title">
             Delete this palette?
           </DialogTitle>
           <List>
-            <ListItem
-              button
-              onClick={() => {
-                deletePalette(deletingId);
-                setOpenDeleteDialog(false);
-              }}
-            >
+            <ListItem button onClick={handleDelete}>
               <ListItemAvatar>
                 <Avatar
                   style={{ backgroundColor: blue[100], color: blue[600] }}
@@ -79,13 +87,7 @@ const PaletteList = ({ palettes, classes, history, deletePalette }) => {
               </ListItemAvatar>
               <ListItemText>Delete</ListItemText>
             </ListItem>
-            <ListItem
-              button
-              onClick={() => {
-                setOpenDeleteDialog(false);
-                setDeletingId("");
-              }}
-            >
+            <ListItem button onClick={handleCancel}>
               <ListItemAvatar>
                 <Avatar style={{ backgroundColor: red[100], color: red[600] }}>
                   <CloseIcon />
