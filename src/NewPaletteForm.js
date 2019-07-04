@@ -40,21 +40,17 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const addRandomColor = () => {
     if (colors.length < variables.maxColors) {
       const allColors = palettes.map(p => p.colors).flat();
+      let rand;
       let randomColor;
-      let check = true;
+      let isDuplicateColor = true;
       let maxLoop = 0;
-      while (check) {
-        var rand = Math.floor(Math.random() * allColors.length);
-        var exists =
-          colors.map(c => c.color).indexOf(allColors[rand].color) !== -1;
-        if (!exists) {
-          randomColor = allColors[rand];
-          check = false;
-        }
-        if (maxLoop >= 1000) {
-          check = true;
-        }
-        maxLoop = maxLoop + 1;
+      while (isDuplicateColor && maxLoop < 1000) {
+        rand = Math.floor(Math.random() * allColors.length);
+        randomColor = allColors[rand];
+        isDuplicateColor = colors.some(
+          color => color.name === randomColor.name
+        );
+        maxLoop++;
       }
       setColors(oldColors => [...oldColors, randomColor]);
     }

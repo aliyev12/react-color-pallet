@@ -100,6 +100,15 @@ const App = props => {
                     />
                   )}
                 />
+                <Route
+                  render={routeProps => (
+                    <PaletteList
+                      palettes={palettes}
+                      deletePalette={deletePalette}
+                      {...routeProps}
+                    />
+                  )}
+                />
               </Switch>
             </CSSTransition>
           </TransitionGroup>
