@@ -13,7 +13,7 @@ const MiniPalette = React.memo(
     openDialog,
     paletteId
   }) => (
-    <div className={classes.root} onClick={handleClick}>
+    <div className={classes.root} onClick={() => handleClick(paletteId)}>
       <DeleteIcon
         className={classes.deleteIcon}
         style={{ transition: "all 0.3s ease-in-out" }}
