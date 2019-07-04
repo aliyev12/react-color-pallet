@@ -133,6 +133,7 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
             setColors(colors.filter(col => col.name !== colorName));
           }}
           onSortEnd={onSortEnd}
+          distance={20}
         />
       </main>
     </div>
