@@ -1,8 +1,3 @@
-stashing into branch 1 ....
-learning stash for multiple files...
-learning stash for untracked files...
-test: learning stage. delete this line later...
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -68,8 +63,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ad
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify updateReadMe   testingRebase 222 again testing rebase   huu haa rebasing worked
+### `npm run build` fails to minify updateReadMe testingRebase 222 again testing rebase huu haa rebasing worked
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-### test test3 test4 test5 test6 ff
