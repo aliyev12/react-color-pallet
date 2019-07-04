@@ -12,6 +12,7 @@ import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import variables from "./variables";
 import useStyles from "./styles/NewPaletteFormStyles";
+import Page from "./Page";
 
 const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const classes = useStyles();
@@ -67,76 +68,78 @@ const NewPaletteForm = ({ savePalette, history, palettes }) => {
   const paletteIsFull = colors.length >= variables.maxColors;
 
   return (
-    <div className={classes.root}>
-      <PaletteFormNav
-        open={open}
-        setOpen={setOpen}
-        classes={classes}
-        palettes={palettes}
-        handleSubmit={handleSubmit}
-      />
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={() => setOpen(false)}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <div className={classes.container}>
-          <Typography variant="h4" gutterBottom>
-            Design Your Palette
-          </Typography>
-          <div className={classes.buttons}>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setColors([])}
-              className={classes.button}
-            >
-              Clear Palette Button
-            </Button>
-            <Button
-              disabled={paletteIsFull}
-              variant="contained"
-              color="primary"
-              onClick={addRandomColor}
-              className={classes.button}
-            >
-              {paletteIsFull ? "Palette Full" : "Random Color"}
-            </Button>
-          </div>
-          <ColorPickerForm
-            paletteIsFull={paletteIsFull}
-            handleAddNewColor={handleAddNewColor}
-            colors={colors}
-          />
-        </div>
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        <DraggableColorList
-          colors={colors}
-          axis="xy"
-          removeColor={colorName => {
-            setColors(colors.filter(col => col.name !== colorName));
-          }}
-          onSortEnd={onSortEnd}
-          distance={20}
+    <Page>
+      <div className={classes.root}>
+        <PaletteFormNav
+          open={open}
+          setOpen={setOpen}
+          // classes={classes}
+          palettes={palettes}
+          handleSubmit={handleSubmit}
         />
-      </main>
-    </div>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={() => setOpen(false)}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <div className={classes.container}>
+            <Typography variant="h4" gutterBottom>
+              Design Your Palette
+            </Typography>
+            <div className={classes.buttons}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => setColors([])}
+                className={classes.button}
+              >
+                Clear Palette Button
+              </Button>
+              <Button
+                disabled={paletteIsFull}
+                variant="contained"
+                color="primary"
+                onClick={addRandomColor}
+                className={classes.button}
+              >
+                {paletteIsFull ? "Palette Full" : "Random Color"}
+              </Button>
+            </div>
+            <ColorPickerForm
+              paletteIsFull={paletteIsFull}
+              handleAddNewColor={handleAddNewColor}
+              colors={colors}
+            />
+          </div>
+        </Drawer>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: open
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          <DraggableColorList
+            colors={colors}
+            axis="xy"
+            removeColor={colorName => {
+              setColors(colors.filter(col => col.name !== colorName));
+            }}
+            onSortEnd={onSortEnd}
+            distance={20}
+          />
+        </main>
+      </div>
+    </Page>
   );
 };
 

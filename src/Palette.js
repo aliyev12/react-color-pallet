@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
 import { withStyles } from "@material-ui/styles";
 import styles from "./styles/PaletteStyles";
+import Page from "./Page";
 
 const Palette = ({ palette: { colors, paletteName, emoji, id }, classes }) => {
   const [level, setLevel] = useState(500);
@@ -21,20 +22,22 @@ const Palette = ({ palette: { colors, paletteName, emoji, id }, classes }) => {
     />
   ));
   return (
-    <div className={classes.Palette}>
-      <Navbar
-        level={level}
-        setLevel={newLevel => setLevel(newLevel)}
-        changeFormat={value => changeFormat(value)}
-        showingAllColors
-      />
-      {/* Navbar goes here */}
-      <div className={classes.colors}>
-        {/* bunch of colors */}
-        {colorBoxes}
+    <Page>
+      <div className={classes.Palette}>
+        <Navbar
+          level={level}
+          setLevel={newLevel => setLevel(newLevel)}
+          changeFormat={value => changeFormat(value)}
+          showingAllColors
+        />
+        {/* Navbar goes here */}
+        <div className={classes.colors}>
+          {/* bunch of colors */}
+          {colorBoxes}
+        </div>
+        <PaletteFooter paletteName={paletteName} emoji={emoji} />
       </div>
-      <PaletteFooter paletteName={paletteName} emoji={emoji} />
-    </div>
+    </Page>
   );
 };
 

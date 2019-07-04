@@ -1,6 +1,9 @@
 import variables from "../variables";
 import { makeStyles } from "@material-ui/core/styles";
-
+/*
+Warning: Material-UI: the key `drawer` provided to the classes property is not implemented in PaletteFormNav.
+You can only override one of the following: root,hide,appBar,appBarShift,menuButton,navBtns,button,goBackBtn,saveBtn,createAPalette.
+*/
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex"

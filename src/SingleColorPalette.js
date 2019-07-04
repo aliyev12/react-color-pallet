@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
 import { withStyles } from "@material-ui/styles";
 import styles from "./styles/PaletteStyles";
+import Page from "./Page";
 
 const SingleColorPalette = ({ palette, colorId, classes }) => {
   const [format, changeFormat] = useState("hex");
@@ -48,16 +49,18 @@ const SingleColorPalette = ({ palette, colorId, classes }) => {
 
   if (paletteName && emoji && id) {
     return (
-      <div className={classes.Palette}>
-        <Navbar changeFormat={changeFormat} showingAllColors={false} />
-        <div className={classes.colors}>
-          {colorBoxes}
-          <div className={classes.goBack}>
-            <Link to={`/palette/${id}`}>Go Back</Link>
+      <Page>
+        <div className={classes.Palette}>
+          <Navbar changeFormat={changeFormat} showingAllColors={false} />
+          <div className={classes.colors}>
+            {colorBoxes}
+            <div className={classes.goBack}>
+              <Link to={`/palette/${id}`}>Go Back</Link>
+            </div>
           </div>
+          <PaletteFooter paletteName={paletteName} emoji={emoji} />
         </div>
-        <PaletteFooter paletteName={paletteName} emoji={emoji} />
-      </div>
+      </Page>
     );
   } else {
     return null;

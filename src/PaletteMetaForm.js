@@ -27,6 +27,7 @@ const PaletteMetaForm = ({ palettes, handleSubmit, setFormShowing }) => {
       paletteName: newPaletteName,
       emoji: native
     });
+    setStage("");
   };
 
   return (
